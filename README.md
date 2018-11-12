@@ -8,6 +8,6 @@ Given a GitHub repository name and owner, download all the contributors' profile
 
 This program should be executed from the command line, in the following manner:
 
-`node download_avatars.js jquery jquery`
+`node download_avatars.js <Owner_Of_Repo> <Name_Of_Repo>`
 
 ... (whatever else you'd like to include)

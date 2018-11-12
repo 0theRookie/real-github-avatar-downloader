@@ -28,11 +28,12 @@ function getRepoContributors(repoOwner, repoName, cb){
 
 getRepoContributors(r_Owner, r_Name, (err, result) => {
     if(err) throw err;
-
+    //make sure to fill out all fields in cli
     if(!r_Owner || !r_Name) {
         console.log("|========|\nMissing Parameters! Please enter a RepoOwner and RepoName...\n|========|");
         throw err;
     }
+
     //loop through parsed object and log value of avatar_url in each user
     for(let user in result){
         let resultUSER = result[user].login;
