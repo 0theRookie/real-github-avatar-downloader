@@ -1,5 +1,7 @@
 const request = require('request');
 const secrets = require('./secrets.js');
+const fs = require('fs');
+
 
 console.log("Welcome to the Github Avatar Downloader!");
 
@@ -24,11 +26,23 @@ getRepoContributors("jquery", "jquery", (err, result) => {
 
     //loop through parsed object and log value of avatar_url in each user
     for(let user in result){
-        console.log(result[user].avatar_url);
+        console.log(`Avatar URL ${Number(user) + 1}: `, result[user].avatar_url);
     }
-    // console.log("url: ", result);
-    // let parsedResult = JSON.parse(result);
-
-    // console.log("Errors:", err);
-    // console.log("Result:", parsedResult);
 })
+
+function downloadImageByURL(url, filePath){
+    console.log("Making request...");
+
+    request.get(url)
+        .on('error', (err) => {
+            console.log("Error: ", err);
+            throw err;
+        })
+        .on('response', (res) => {
+            console.log("Got Response: ", res.statusCode);
+        })
+        .pipe(fs.createWriteStream(filePath));
+        console.log("Image Downloading...")
+}
+
+downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
