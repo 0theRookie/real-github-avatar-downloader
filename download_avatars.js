@@ -26,7 +26,11 @@ getRepoContributors("jquery", "jquery", (err, result) => {
 
     //loop through parsed object and log value of avatar_url in each user
     for(let user in result){
-        console.log(`Avatar URL ${Number(user) + 1}: `, result[user].avatar_url);
+        console.log(`User Name ${Number(user) + 1}: `, );
+
+        let resultUSER = result[user].login;
+        let resultURL = result[user].avatar_url;
+        downloadImageByURL(resultURL, `avatars/${resultUSER}.jpg`);
     }
 })
 
@@ -45,4 +49,3 @@ function downloadImageByURL(url, filePath){
         console.log("Image Downloading...")
 }
 
-downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
