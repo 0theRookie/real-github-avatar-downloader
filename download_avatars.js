@@ -12,16 +12,21 @@ function getRepoContributors(repoOwner, repoName, cb){
         }
     };
 
+    //passes necessary info (options and body) into cb func
     request(options, function(err, res, body) {
-        // console.log("Parsed Body: ", JSON.parse(body))
         cb(err, JSON.parse(body));
     });
 }
 
+
 getRepoContributors("jquery", "jquery", (err, result) => {
     if(err) throw err;
 
-    console.log("Result: ", result);
+    //loop through parsed object and log value of avatar_url in each user
+    for(let user in result){
+        console.log(result[user].avatar_url);
+    }
+    // console.log("url: ", result);
     // let parsedResult = JSON.parse(result);
 
     // console.log("Errors:", err);
