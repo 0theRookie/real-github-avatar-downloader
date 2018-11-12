@@ -2,6 +2,11 @@ const request = require('request');
 const secrets = require('./secrets.js');
 const fs = require('fs');
 
+const r_Owner = process.argv[2];
+const r_Name = process.argv[3];
+
+
+
 
 console.log("Welcome to the Github Avatar Downloader!");
 
@@ -14,22 +19,22 @@ function getRepoContributors(repoOwner, repoName, cb){
         }
     };
 
-    //passes necessary info (options and body) into cb func
+    //passes necessary info (options and body) into cb func (JSON request)
     request(options, function(err, res, body) {
         cb(err, JSON.parse(body));
     });
 }
 
 
-getRepoContributors("jquery", "jquery", (err, result) => {
+getRepoContributors(r_Owner, r_Name, (err, result) => {
     if(err) throw err;
 
     //loop through parsed object and log value of avatar_url in each user
     for(let user in result){
-        console.log(`User Name ${Number(user) + 1}: `, );
-
         let resultUSER = result[user].login;
         let resultURL = result[user].avatar_url;
+
+        console.log(`User Name ${Number(user) + 1}: ${resultUSER}`);
         downloadImageByURL(resultURL, `avatars/${resultUSER}.jpg`);
     }
 })
